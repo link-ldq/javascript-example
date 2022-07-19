@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <button onclick="fangdou()">触发防抖</button>
+  <button onclick="jieliu()">触发节流</button>
+</body>
+<script>
+  /*
+   * 防抖函数
+   * @param fn 事件触发的操作
+   * @param delay 多少毫秒内连续触发事件，不会执行
+   * @returns {Function}
+  */
+  function debounce(fn, delay) {
+    let timer = null; //通过闭包缓存了一个定时器
+    return function () {
+      const args = [...arguments];
+      timer && clearTimeout(timer);
+      timer = setTimeout(() => {
+        fn.apply(this, args);
+      }, delay);
+    }
+  }
+  const fangdou = debounce(function () {
+    console.log('防抖')
+  }, 1000)
+
+
+  // 节流
+  function throttle(fn, delay) {
+    let last = Date.now();
+    return function () {
+      let now = Date.now();
+      console.log(now - last, delay, now - last > delay)
+      if (now - last > delay) {
+        fn.apply(this, arguments);
+        last = now;
+      }
+    }
+  }
+  const jieliu = throttle(function () { console.log('节流') }, 1000)
+  console.log(Object.prototype.toString.call(new Map()).slice(8, -1))
+</script>
+
+</html>
