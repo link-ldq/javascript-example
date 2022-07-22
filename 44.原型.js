@@ -73,3 +73,17 @@ console.log(p);
 console.log(p2);
 
 console.log(new per(20));
+
+function PP(name){
+  this.name = name
+}
+const pp = new PP('link')
+console.log(
+  pp.__proto__,
+  PP.prototype,
+  pp instanceof PP
+);
+
+
+
+
