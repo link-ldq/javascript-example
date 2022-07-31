@@ -27,7 +27,6 @@ MyLinkedList.prototype.getNode = function(index) {
 MyLinkedList.prototype.get = function(index) {
     if(index < 0 || index >= this._size) return -1;
     // 获取当前节点
-    return this.getNode(index).val;
 };
 
 /**
