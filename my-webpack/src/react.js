@@ -1,10 +1,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './index.css'
-import './index.less'
+import './index1.css'
+import './index2.less'
+import logo from './images/1.jpg'
 class Rc extends React.Component{
   render() {
-    return <div>hello react</div>
+    return (
+      <div>
+        <div>hello react</div>
+        <img src={logo} />
+      </div>
+    )
   }
 }
 ReactDOM.render(
