@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --open",
-    "build": "webpack",
+    "dev": "webpack-dev-server --config webpack.dev.js --open ",
+    "build": "webpack --config webpack.prod.js",
     "watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -29,6 +29,9 @@
     "webpack-dev-server": "^4.9.3"
   },
   "dependencies": {
-    "file-loader": "^6.2.0"
+    "clean-webpack-plugin": "^4.0.0",
+    "file-loader": "^6.2.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.1"
   }
 }
