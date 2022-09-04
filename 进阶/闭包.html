@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    var foo = {
+      value: 3
+    };
+
+    function bar(num, n2, n3) {
+      console.log(this.value * num * n2 * n3);
+    }
+
+    Function.prototype.myCall = function (context, ...arg) {
+      if (typeof this !== 'function') {
+        throw new Error('`${this}` no function')
+      }
+      if (!context instanceof Object) {
+        throw new Error('`${this}` no Object')
+      }
+      context.fn = this
+      return function (...arg) {
+        context.fn(...arg)
+      }
+    }
+
+    bar.call(foo, 4, 5, 6); // 12
+
+    bar.myCall(foo)(5, 4, 6); // 15
+
+  </script>
+
+</body>
+
+</html>

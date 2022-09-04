@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div>
+    <p>点击</p>
+  </div>
+</body>
+<script>
+  var phases = {
+    1: 'capture',
+    2: 'target',
+    3: 'bubble'
+  };
+
+  var div = document.querySelector('div');
+  var p = document.querySelector('p');
+
+  div.addEventListener('click', callback, true);
+  p.addEventListener('click', callback, true);
+  div.addEventListener('click', callback, false);
+  p.addEventListener('click', callback, false);
+
+  function callback(event) {
+    console.log(event.detail);
+    var tag = event.currentTarget.tagName;
+    var phase = phases[event.eventPhase];
+    console.log("Tag: '" + tag + "'. EventPhase: '" + phase + "'");
+  }
+
+  var checkValidString = function (s) {
+    let stack = [], star = [];
+    for (let i = 0; i < s.length; i++) { // 一遍遍历， 对每一个s[i]，判断是入栈还是抵消
+      if (s[i] == '(') stack.push(i);
+      else if (s[i] == '*') star.push(i);
+      else { // 是个 ")", 两个栈都不收，不仅不收，还要‘抵消’， 处理如下👇
+        if (stack.length) stack.pop();
+        else if (star.length) star.pop();
+        else return false; // 没得抵消了， 只能返回false
+      }
+    }
+
+    if (stack.length > star.length) return false; //对两个栈 处理
+    while (stack.length && star.length) {
+      if (stack.pop() > star.pop()) return false; // **((, 类似这样，虽个数合适，但顺序（下标）不可
+    }
+    return true;
+  };
+
+
+</script>
+
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  #container {
+    width: 100%;
+    height: 200px;
+    line-height: 200px;
+    text-align: center;
+    color: #fff;
+    background-color: #444;
+    font-size: 30px;
+  }
+</style>
+
+<body>
+  <div id="container"></div>
+  <script>
+    var count = 1;
+    var container = document.getElementById('container');
+
+    function getUserAction() {
+      container.innerHTML = count++;
+    };
+
+    // container.onmousemove = debounce(getUserAction, 1000);
+    container.onmousemove = throttle(getUserAction, 1000);
+    // 第四版
+    function throttle(fn, wait) {
+      var timeout
+      return function () {
+        var context = this
+        clearTimeout(timeout)
+        timeout = setTimeout(function () {
+          fn.apply(context)
+        }, wait)
+      }
+    }
+    // function debounce(func, wait) {
+    //   var timeout;
+    //   return function () {
+    //     var context = this;
+    //     clearTimeout(timeout)
+    //     timeout = setTimeout(function () {
+    //       func.apply(context)
+    //     }, wait);
+    //   }
+    // }
+    // function throttle(fn, wait) {
+    //   var previous = 0, args, context
+
+    //   return function () {
+    //     context = this
+    //     const now = +new Date()
+    //     args = arguments
+    //     if (now - previous > wait) {
+    //       fn.apply(context, args)
+    //       previous = now
+    //     }
+    //   }
+    // }
+    // function throttle(func, wait, options) {
+    //   var timeout, context, args, result;
+    //   var previous = 0;
+    //   if (!options) options = {};
+
+    //   var later = function () {
+    //     previous = options.leading === false ? 0 : new Date().getTime();
+    //     timeout = null;
+    //     func.apply(context, args);
+    //     if (!timeout) context = args = null;
+    //   };
+
+    //   var throttled = function () {
+    //     var now = new Date().getTime();
+    //     if (!previous && options.leading === false) previous = now;
+    //     var remaining = wait - (now - previous);
+    //     context = this;
+    //     args = arguments;
+    //     if (remaining <= 0 || remaining > wait) {
+    //       if (timeout) {
+    //         clearTimeout(timeout);
+    //         timeout = null;
+    //       }
+    //       previous = now;
+    //       func.apply(context, args);
+    //       if (!timeout) context = args = null;
+    //     } else if (!timeout && options.trailing !== false) {
+    //       timeout = setTimeout(later, remaining);
+    //     }
+    //   };
+    //   return throttled;
+    // }
+    // function throttle(fn, wait) {
+    //   var timeout, args, context
+    //   return function () {
+    //     context = this
+    //     args = arguments
+    //     if (!timeout) {
+    //       timeout = setTimeout(() => {
+    //         timeout = null
+    //         fn.apply(context, args)
+    //       }, wait)
+    //     }
+
+    //   }
+    // }
+    // function throttle(fn, wait) {
+    //   var context, args;
+    //   var previous = 0;
+
+    //   return function () {
+    //     var now = +new Date() 
+    //     context = this
+    //     args = arguments
+    //     if (now - previous > wait) {
+    //       fn.apply(context, args)
+    //       previous = now
+    //     }
+    //   }
+    // }
+    // function debounce(func, wait) {
+    //   var timeout;
+
+    //   return function () {
+    //     var context = this;
+    //     clearTimeout(timeout)
+    //     timeout = setTimeout(function () {
+    //       func.apply(context)
+    //     }, wait);
+    //   }
+    // }
+    // function debounce(fn, time) {
+    //   var timeout
+    //   return function () {
+    //     const context = this
+    //     clearTimeout(timeout)
+    //     timeout = setTimeout(() => {
+    //       fn.apply(context)
+    //     }, time)
+    //   }
+    // }
+    function clone(target, map = new Map()) {
+      if (typeof target === "object") {
+        let cloneTarget = Array.isArray(target) ? [] : {}
+        if (map.get(target)) {
+          return target
+        }
+        map.set(target, cloneTarget)
+        for (const key in target) {
+          cloneTarget[key] = clone(target[key], map)
+        }
+        return cloneTarget
+      } else {
+        return target
+      }
+    }
+
+    const target = {
+      field1: 1,
+      field2: undefined,
+      field3: {
+        child: 'child'
+      },
+      field4: [2, 4, 8]
+    };
+    target.target = target;
+    console.log(clone(target));
+    console.log((target));
+    var a = 123456712313894532;
+    var b = 673439.4542;
+
+    console.log(a.toLocaleString());  // "1,234,567,894,532"
+    console.log(b.toLocaleString());  // "673,439.454"  （小数部分四舍五入了）
+    // "673,439.454"  （小数部分四舍五入了）
+    console.log(toFormat(b));
+
+    function toFormat(num) {
+      [num1, num2] = num.toString().split('.')
+      num1 = num1.split("").reverse()
+      var res = []
+      num1.forEach((e, i) => {
+        if (i % 3 === 0) {
+          res.push(',')
+          res.push(e)
+        } else {
+          res.push(e)
+        }
+      })
+      res = res.reverse()
+      console.log(num1, num2, res);
+      if (res[res.length - 1] === ',') {
+        res.pop()
+        res = res.join("")
+      }
+      return res + '.' + num2
+    }
+  </script>
+</body>
+
+</html>

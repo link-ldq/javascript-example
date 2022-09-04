@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<script>
+  // forEach + 递归
+  // Array.prototype.flat = function (dep = 1) {
+  //   // 获取 需要操作的数组
+  //   const _array = this;
+  //   // 新建一个数组
+  //   const array = [];
+  //   // 遍历元素
+  //   _array.forEach((item, index) => {
+  //     // 判断是否为数组 且 是否需要 拍平
+  //     if (Array.isArray(item) && dep >= 1) {
+  //       // 把 falt() 拍平这个数组 加入array
+  //       array.push(...item.flat(dep - 1));
+  //     } else {
+  //       // 直接加入新数组
+  //       array.push(item);
+  //     }
+  //   });
+  //   // 返回
+  //   return array;
+  // };
+
+  // reduce + 递归
+  Array.prototype.flat = function (dep = 1) {
+    // 获取 需要操作的数组
+    const _array = this;
+    // 新建一个数组
+    const array = [];
+    // 遍历元素
+    return _array.reduce((pre, cur) => {
+      return pre.concat(
+        Array.isArray(cur) && dep-- >= 1 ?
+          cur.flat(dep)
+          :
+          cur
+      )
+    }, [])
+  };
+  const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']];
+  // animals.flat()
+  console.log(animals.flat()); // ['🐷', '🐶', '🐂', '🐎', Array(2), '🐛']
+  // console.log(animals.flat(1)); // ['🐷', '🐶', '🐂', '🐎', Array(2), '🐛']
+  // console.log(animals.flat(2)); // ['🐷', '🐶', '🐂', '🐎', '🐑', Array(1), '🐛']
+  // console.log(animals.flat(3)); // ['🐷', '🐶', '🐂', '🐎', '🐑', '🐲', '🐛']
+</script>
+
+</html>

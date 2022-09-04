@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 返回 "Cherry"
+    const A = {
+      name: '我是A对象的name',
+      getName: function (a, b, c) {
+        console.log(this.name, a + b + c);
+      },
+    };
+
+    const B = {
+      name: '我是B对象的name'
+    }
+    A.getName(2, 3, 4) // //结果 我是A对象的name 9
+
+    // A.getName.call(B, 1, 2, 3) //结果 我是B对象的name 6
+    A.getName.apply(B, [1, 2, 3])
+    // A.getName.bind(B, 1, 2, 3)()
+
+
+    // 手写实现call
+    // Function.prototype.myCall = function (context, ...args) {
+    //   console.log('this:', this);
+    //   console.log('context:', context);
+    //   console.log('args:', args);
+    //   if (typeof this !== 'function') {
+    //     throw new Error(`${this} is not function`)
+    //   }
+    //   if (!context instanceof Object) {
+    //     throw new Error(`${this} is not Object`)
+    //   }
+    //   //将函数绑定到对象上作为对象上的方法
+    //   context.fn = this
+    //   // 执行对象中的方法
+    //   const result = context.fn(...args)
+    //   //删除被绑定的方法
+    //   delete context['fn']
+    //   return result
+    // }
+    // A.getName.myCall(B, 1, 2, 3) //结果 我是B对象的name 6
+
+
+    // 手写实现Apply
+    // Function.prototype.myApply = function (context, args) {
+    //   console.log('this:', this);
+    //   console.log('context:', context);
+    //   console.log('args:', args);
+
+    //   if (typeof this !== "function") {
+    //     throw new Error(`${this} is not a function`)
+    //   }
+    //   if (!context instanceof Object) {
+    //     throw new Error(`${this} is not a Object`)
+    //   }
+    //   context.fn = this
+    //   const res = context.fn(...args)
+    //   delete context.fn
+    //   return res
+    // }
+    // A.getName.myApply(B, [1, 2, 3]) //结果 我是B对象的name 6
+
+    // 手写实现 bind 
+    Function.prototype.myBind = function (context) {
+      if (typeof this !== 'function') {
+        throw new Error(`${this} is not function`)
+      }
+      if (!context instanceof Object) {
+        throw new Error(`${this} is not Object`)
+      }
+      const self = this
+      return function (...args) {
+        context.fn = self
+        const result = context.fn(...args)
+        delete context.fn
+        return result
+      }
+    }
+
+    A.getName.myBind(B)(1, 2, 3) //结果 我是B对象的name 6
+    console.log(B);
+  </script>
+</body>
+
+</html>

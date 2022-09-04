@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    function Test(name) {
+      this.name = name;
+    }
+    Test.prototype.sayName = function () {
+      console.log(this.name);
+    };
+    // const t = new Test('yck');
+    const t = createNew(Test, 'yck');
+    console.log(t.name);
+    t.sayName();
+
+    function createNew(fn, ...args) {
+      let obj = {}
+      Object.setPrototypeOf(obj, fn.prototype)
+      console.log(obj);
+      // let res = fn.bind(obj)(...args)
+      let res = fn.call(obj, ...args)
+      // console.log(obj);
+      console.log(res);
+      return res instanceof Object ? res : obj
+    }
+
+  </script>
+</body>
+
+</html>
