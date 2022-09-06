@@ -1,12 +1,12 @@
-// setTimeout(() => {
-//   let n = Math.random(1, 100) * 100;
-//   n = Number(n.toString().split('.')[0])
-//   if (n > 30) {
-//     console.log(n, 'false');
-//   } else {
-//     console.log(n, 'yes');
-//   }
-// },1000)
+setTimeout(() => {
+  let n = Math.random(1, 100) * 100;
+  n = Number(n.toString().split('.')[0])
+  if (n > 30) {
+    console.log(n, 'false');
+  } else {
+    console.log(n, 'yes');
+  }
+},1000)
 
 const p = new Promise((resolve,reject) => {
   setTimeout(() => {
