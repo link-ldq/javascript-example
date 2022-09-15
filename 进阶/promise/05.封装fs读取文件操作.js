@@ -9,6 +9,10 @@ function mineReadFile(path) {
 
 mineReadFile('./ajax.js')
 .then(val => {
+    console.log('1', val);
+    return val
+})
+.then(val => {
     console.log(val);
 }).catch(err => {
   console.log(err);
