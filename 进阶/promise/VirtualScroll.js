@@ -35,6 +35,8 @@ export default class VirtualScroll {
   initContainer($list) {
     this.containerHeight = $list.clientHeight
     this.contentHeight = sumHeight(this._list)
+    console.log(this.contentHeight)
+    console.log(this.containerHeight)
     $list.style.overflow = "hidden"
     // $list.style.overflow = "visible"
   }

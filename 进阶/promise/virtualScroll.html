@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VirtualScroll</title>
+  <style>
+    .container,
+    .container2 {
+      position: relative;
+      height: 200px;
+      overflow: scroll;
+      border: thin solid #ccc;
+    }
+
+    .item {
+      height: 40px;
+      padding: 0 20px;
+      line-height: 40px;
+      border-bottom: thin solid #eee;
+      box-sizing: border-box;
+    }
+
+    #table {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 200px;
+      outline: 2px solid #12464c;
+      background-color: #00bcd47a;
+      z-index: 1;
+    }
+
+    .vs__scroll {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 20px;
+      height: 100%;
+      background-color: #333;
+      z-index: 2;
+    }
+
+    .vs__scrollbar {
+      width: 100%;
+      min-height: 20px;
+      background-color: azure;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>虚拟滚动</h1>
+  <p>数据条数：100,000</p>
+  <p>渲染耗时：<span class="js-perf-v"></span></p>
+  <div class="container">
+    <div id="table"></div>
+  </div>
+  <!-- <div class="container2"></div> -->
+
+  <script type="module">
+    // 构造函数，确定一些参数
+    class VT {
+      constructor($tableList = [], $el = null) {
+        // 整个大的容器
+        this.$el = $el
+        // 整个列表
+        this.$tableList = $tableList
+        // 当前渲染的数据
+        this.$list = []
+        // 偏移量
+        this.defOffset = 0
+
+        // 初始化列表
+        this.initTableList()
+        // 初始化容器
+        this.initContainer()
+
+        // 初始化渲染
+        this.offset = this.defOffset
+        // 增加事件
+        this.bindEvents()
+      }
+      // 处罚更新
+      set offset(val) {
+        this.defOffset = val
+        this.render(val)
+      }
+      get offset() {
+        return this.defOffset
+      }
+
+      // 初始化列表
+      // 修改数据结构
+      initTableList() {
+        this.$list = this.$tableList.map(m => {
+          return {
+            height: m.height,
+            index: m.index,
+            text: m.index,
+          }
+        })
+      }
+      // 初始化
+      initContainer() {
+        // 获取container高度
+        this.containerHeight = this.$el.clientHeight
+        this.$el.style.overflow = "hidden"
+        // d
+        this.contentHeight = this.sumHeight(this.$list)
+        console.log(this.containerHeight, this.contentHeight);
+      }
+      // 监听事件
+      bindEvents() {
+        let y = 0;
+        const scrollSpace = this.contentHeight - this.containerHeight
+        // 监听容器的滚动事件，记录下总的的滚动长度
+        this.$el.addEventListener('wheel', e => {
+          e.preventDefault()
+          y += e.deltaY;
+          y = Math.max(y, 0)
+          y = Math.min(y, scrollSpace)
+          this.offset = y
+        })
+      }
+      // 视图更新
+      render(offset) {
+        // 起点
+        const headIndex = this.findPosition(offset)
+        // 结束点
+        const endnIdex = this.findPosition(offset + this.containerHeight)
+        // 渲染的位置，偏移量
+        this.renderOffset = offset - this.sumHeight(this.$lisy, 0, headIndex)
+        // 等待渲染的列表
+        this.renderList = this.$list.slice(headIndex, endnIdex + 1)
+        console.log(this.renderOffset, this.renderList);
+
+        // 创建一个容器
+        const $listDiv = document.createElement('div')
+        this.renderList.forEach(f => {
+          // 每行
+          const li = document.createElement('li')
+          li.innerHTML = f.text
+          $listDiv.appendChild(li)
+        })
+        // 设置偏移量
+        $listDiv.style.transform = `translateY(-${this.renderOffset}px)`
+        $listDiv.style.background = 'red'
+        // 重置列表
+        this.$el.innerHTML = ''
+        // 加入列表
+        this.$el.appendChild($listDiv)
+      }
+      // 获取指定高度点的index
+      findPosition(offset) {
+        // 起始点高度
+        let currentHeight = 0;
+        for (let i = 0; i < this.$list.length; i++) {
+          const height = this.$list[i].height;
+          currentHeight += height;
+          if (currentHeight > offset) {
+            return i;
+          }
+        }
+        return this.$list.length - 1;
+      }
+      // 寻找结束点
+      findEndPosition() {
+        // 起始点高度
+        let currentHeight = 0;
+        for (let i = 0; i < this.$list.length; i++) {
+          const height = this.$list[i].height;
+          currentHeight += height;
+        }
+        return currentHeight;
+      }
+      // 偏移量
+      sumHeight(list, start = 0, end = list.length) {
+        let height = 0;
+        for (let i = start; i < end; i++) {
+          height += this.$list[i].height;
+        }
+        return height;
+      }
+    }
+    // 初始化
+    const El = document.getElementById('table')
+    const tableList = []
+    for (let i = 0; i < 100; i++) {
+      tableList.push({
+        index: i,
+        height: 30,
+      })
+    }
+
+    const virtual = new VT(tableList, El)
+
+  </script>
+</body>
+
+</html>
