@@ -1,15 +1,18 @@
-import sys
 
-print('==>请输入成绩:')
-cj = int(sys.stdin.readline().strip('\n'))  # strip('\n')
-
-if(cj > 90):
-    print('优秀')
-if(cj > 80):
-    print('良好')
-if(cj > 70):
-    print('中等')
-if(cj > 60):
-    print('及格')
+# 1.获取一个年份，一个月份
+Y = int(input("请输入一个年份："))
+M = int(input("请输入一个月份："))
+# 2.判断月份是否在1~12月之间
+if M < 1 or M > 12:
+    print("输入的月份有误")
+# 3.判断2月份是否在闰年，如果闰年就打印29天，否则打印28天
+elif M == 2:
+    if Y % 4 == 0 and Y % 100 != 0 or Y % 400 == 0:
+        print("29天")
+    else:
+        print("28天")
+# 4.如果月份在4/6/9/11这几个月打印30天，否则打印31天
+elif M == 4 or M == 6 or M == 9 or M == 11:
+    print("30天")
 else:
-    print('不及格')
+    print("31天")

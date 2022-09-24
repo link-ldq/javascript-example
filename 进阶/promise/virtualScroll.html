@@ -121,6 +121,7 @@
         this.$el.addEventListener('wheel', e => {
           e.preventDefault()
           y += e.deltaY;
+          // 消除负数和超出高度的值
           y = Math.max(y, 0)
           y = Math.min(y, scrollSpace)
           this.offset = y
@@ -133,10 +134,10 @@
         // 结束点
         const endnIdex = this.findPosition(offset + this.containerHeight)
         // 渲染的位置，偏移量
-        this.renderOffset = offset - this.sumHeight(this.$lisy, 0, headIndex)
+        this.renderOffset = offset - this.sumHeight(this.$list, 0, headIndex)
         // 等待渲染的列表
         this.renderList = this.$list.slice(headIndex, endnIdex + 1)
-        console.log(this.renderOffset, this.renderList);
+        console.log(this.offset, this.sumHeight(this.$list, 0, headIndex), this.renderOffset, this.renderList);
 
         // 创建一个容器
         const $listDiv = document.createElement('div')
@@ -177,7 +178,7 @@
         }
         return currentHeight;
       }
-      // 偏移量
+      // 偏隐藏高度 px
       sumHeight(list, start = 0, end = list.length) {
         let height = 0;
         for (let i = start; i < end; i++) {
@@ -198,6 +199,54 @@
 
     const virtual = new VT(tableList, El)
 
+  </script>
+  <script>
+    class EventBus {
+      // 定义所有事件列表,格式如下：
+      // {
+      //   key: Array,
+      //   key: Array,
+      // } 
+      // Array存储的是注册的回调函数
+      constructor() {
+        this.eventObj = {}; // 用于存储所有订阅事件
+      }
+      // 订阅事件,类似监听事件$on('key',()=>{})
+      $on(name, callbcak) {
+        // 判断是否存储过
+        if (!this.eventObj[name]) {
+          this.eventObj[name] = [];
+        }
+        this.eventObj[name].push(callbcak); // 往事件数组里面push
+      }
+      // 发布事件,类似于触发事件$emit('key')
+      $emit(name) {
+        // 获取存储的事件回调函数数组
+        const eventList = this.eventObj[name];
+        // 执行所有回调函数
+        for (const callbcak of eventList) {
+          callbcak();
+        }
+      }
+    }
+    // 初始化EventBus
+    let EB = new EventBus();
+    // 订阅事件
+    EB.$on('key1', () => {
+      console.info("我是订阅事件A");
+    })
+    EB.$on("key1", () => {
+      console.info("我是订阅事件B");
+    })
+    EB.$on("key2", () => {
+      console.info("我是订阅事件C");
+    })
+
+
+
+    // 发布事件
+    EB.$emit('key1');
+    // EB.$emit('key2');
   </script>
 </body>
 

@@ -13,7 +13,7 @@ class HashTable {
       this.table[position].push(new ValuePair(key, value));
       return true;
     }
-    return false;
+   return false;
   }
   remove(key) {
     // const hash = this.hashCode(key);
