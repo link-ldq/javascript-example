@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body><button id="jl">节流</button>
+  <button id="fd">防抖</button>
+  <script>
+    const jieliu = document.getElementById('jl')
+    const fangdou = document.getElementById('fd')
+
+    jieliu.addEventListener('click', throttled(jl))
+    fangdou.addEventListener('click', debounce(fd))
+    function debounce(fn, delay = 1000) {
+      // 延时器
+      // let timer = null
+      // return function (...args) {
+      //   clearTimeout(timer)
+      //   timer = setTimeout(() => {
+      //     fn(args)
+      //   }, delay)
+      // }
+      // 立即执行
+      let timer = null
+      let i = 0
+      return function (...args) {
+        if (timer) clearTimeout(timer)
+        if (!i) {
+          i++
+          let callnow = !timer
+          timer = setTimeout(() => timer = null, delay)
+          if (callnow) {
+            fn(args)
+          }
+        } else {
+          timer = setTimeout(() => {
+            fn(args)
+          }, delay)
+        }
+      }
+    }
+    function throttled(fn, delay = 1000) {
+      // 时间戳
+      // 事件会立即执行，停止触发后没有办法再次执行
+      // let oldtime = Date.now()
+      // return function (...args) {
+      //   let newtime = Date.now()
+      //   console.log(newtime - oldtime, delay);
+      //   if (newtime - oldtime >= delay) {
+      //     fn.apply(null, args)
+      //     oldtime = Date.now()
+      //   }
+      // }
+
+      // 定时器
+      // delay毫秒后第一次执行，第二次事件停止触发后依然会再一次执行
+      // let timer = null
+      // return function (...args) {
+      //   if (!timer) {
+      //     timer = setTimeout(() => {
+      //       fn(args)
+      //       timer = null
+      //     }, delay)
+      //   }
+      // }
+
+      // 时间戳定时器结合
+      // 可以将时间戳写法的特性与定时器写法的特性相结合，实现一个更加精确的节流。
+      let timer = null
+      let starttime = Date.now()
+      return function () {
+        let curTime = Date.now() // 当前时
+        let remaining = delay - (curTime - starttime)  // 从上一次到现在，还剩下多少多余时间
+        console.log(remaining);
+        let context = this
+        let args = arguments
+        clearTimeout(timer)
+        if (remaining <= 0) {
+          fn.apply(context, args)
+          starttime = Date.now()
+        } else {
+          timer = setTimeout(fn, remaining);
+        }
+      }
+    }
+    function jl() {
+      console.log('节流: n 秒内只运行一次，若在 n 秒内重复触发，只有一次生效');
+    }
+    function fd() {
+      console.log('防抖: n 秒后在执行该事件，若在 n 秒内被重复触发，则重新计时')
+    }
+  </script>
+</body>
+
+</html>
