@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+</head>
+
+<body>
+  <div id="app">{{ permission }}
+    <button v-btn="'admin'">提交admin</button>
+    <button v-btn="'user'">提交user</button>
+    <button v-submit="'user'">user提交submit</button>
+    <button v-submit="'admin'">admin提交submit</button>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    const btn = {
+      mounted: (el, binding, vnode, prevVnode) => {
+        el.addEventListener('click', function () {
+          console.log(el, binding.instance.permission, vnode, prevVnode);
+          if (binding.instance.permission == binding.value) {
+            alert('成功！')
+          } else {
+            alert('没有权限！')
+          }
+        })
+      }
+    }
+    createApp({
+      directives: {
+        btn
+      },
+      data() {
+        return {
+          message: 'Hello Vue!',
+          permission: 'admin'
+        }
+      }
+    }).directive('submit', {
+      mounted: (el, binding, vnode, prevVnode) => {
+        el.addEventListener('click', function () {
+          console.log(el, binding.instance.permission, vnode, prevVnode);
+          if (binding.instance.permission == binding.value) {
+            alert('成功！')
+          } else {
+            alert('没有权限！')
+          }
+        })
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
