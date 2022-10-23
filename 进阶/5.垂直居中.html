@@ -7,38 +7,111 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
+<script>
+  console.log(performance);
+</script>
 
 <body>
-  <script>
-
-    // 模拟 Vue的data
-    let data = {
-      msg: '',
+  <div class="box">
+    <div class="small">small</div>
+  </div>
+  <style>
+    .box {
+      width: 300px;
+      height: 300px;
+      background: #ddd;
     }
-    // 模拟 Vue 实例
-    let vm = {}
-    // 对 vm 的 msg 进行数据劫持
-    Object.defineProperty(vm, 'msg', {
-      // 获取数据
-      get() {
-        return data.msg
-      },
-      // 设置 msg
-      set(newValue) {
-        // 如果传入的值相等就不用修改
-        if (newValue === data.msg) return
-        // 修改数据
-        data.msg = newValue
-        document.querySelector('#app').textContent = data.msg
-      },
-      key(val) {
-        console.log(val);
-      }
-    })
-    // 这样子就调用了 defineProperty vm.msg 的 set
-    vm.msg = '1234'
-  </script>
 
+    .small {
+      background: red;
+    }
+
+    /* absolute+margin实现 */
+    /* 方法一 */
+    /* .box {
+      position: relative;
+    }
+
+    .small {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin: -50px 0 0 -50px;
+      width: 100px;
+      height: 100px;
+    } */
+
+    /* 方法二 */
+    /* .box {
+      position: relative;
+    }
+
+    .small {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      width: 100px;
+      height: 100px;
+    } */
+    /* absolute + calc 实现 */
+    /* .box {
+      position: relative;
+    }
+
+    .small {
+      position: absolute;
+      top: calc(50% - 50px);
+      left: calc(50% - 50px);
+      width: 100px;
+      height: 100px;
+    } */
+
+    /* absolute + transform 实现 */
+    /* .box {
+      position: relative;
+    }
+
+    .small {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 100px;
+      height: 100px;
+    } */
+
+    /* 转行内元素 */
+    /* .box {
+      display: table-cell;
+      text-align: center;
+      vertical-align: middle;
+    }
+
+    .small {
+      padding: 6px 10px;
+      display: inline-block;
+    } */
+
+    /* flex */
+    /* .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    } */
+
+    /*  */
+    .box {
+      display: flex;
+      justify-content: center;
+    }
+
+    .small {
+      align-self: center;
+    }
+  </style>
 </body>
 
 </html>
