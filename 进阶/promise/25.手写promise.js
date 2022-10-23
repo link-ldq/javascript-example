@@ -87,12 +87,12 @@ Promise.prototype.then = function (onResolve, onRejected) {
 
 let p = new Promise((resolve, reject) => {
   // resolve('ok')
-  reject('ERROR')
+  // reject('ERROR')
   // throw "error";
-  // setTimeout(() => {
-  //   resolve('ok')
+  setTimeout(() => {
+    resolve('ok')
   // throw "error";
-  // }, 1000)
+  }, 1000)
 })
 let res = p.then(value => {
   throw 'fail'
