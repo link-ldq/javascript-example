@@ -15,16 +15,18 @@ export class Stack {
     this.stack.push(value)
   }
   pop(): any {
-
+    return this.stack.pop()
   }
   peek() {
-
+    return this.stack[this.stack.length - 1]
   }
   isEmpty() {
-
+    return this.stack.length == 0
   }
   size() {
     return this.stack.length
   }
-  // toString
+  toString() {
+    return this.stack.join(' ')
+  }
 }
