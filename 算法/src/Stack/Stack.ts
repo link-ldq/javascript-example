@@ -11,22 +11,31 @@ export class Stack {
   // 获取栈中元素的个数
   static size: Function
 
-  push(value: any) {
+  push(value: any): void {
     this.stack.push(value)
   }
   pop(): any {
     return this.stack.pop()
   }
-  peek() {
+  peek(): any {
     return this.stack[this.stack.length - 1]
   }
-  isEmpty() {
+  isEmpty(): boolean {
     return this.stack.length == 0
   }
-  size() {
+  size(): number {
     return this.stack.length
   }
-  toString() {
-    return this.stack.join(' ')
+  toString(): string {
+    return this.stack.reverse().join(' ')
   }
+}
+
+export function dec2bin(num: number) {
+  const stack = new Stack();
+  while (num > 0) {
+    stack.push(num % 2)
+    num = Math.floor(num / 2)
+  }
+  return stack.toString()
 }
