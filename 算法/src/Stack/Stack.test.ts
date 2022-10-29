@@ -1,5 +1,7 @@
-import { expect, assert, describe, it, test } from 'vitest'
 import { Stack, dec2bin } from "./Stack";
+
+
+import { expect, assert, describe, it, test } from 'vitest'
 
 const stack = new Stack();
 
