@@ -6,26 +6,27 @@ export class Queue {
   static size: Function;
   static isEmpty: Function;
   static toString: Function;
-  enqueue(value: any) {
+
+  enqueue(value: any): void {
     this.queue.push(value)
   }
-  dequeue() {
+  dequeue(): void {
     return this.queue.shift()
   }
-  front() {
+  front(): void {
     if (this.isEmpty()) {
       return undefined
     } else {
       return this.queue[0]
     }
   }
-  size() {
+  size(): any {
     return this.queue.length
   }
-  isEmpty() {
+  isEmpty(): any {
     return this.queue.length == 0
   }
-  toString() {
+  toString(): any {
     return this.queue.join(' ')
   }
 }
@@ -45,4 +46,46 @@ export function passGame(nameList: any[], num: number) {
     queue.dequeue()
   }
   return nameList.indexOf(queue.front())
+}
+
+interface QueueEl {
+  value: any,
+  priority: number
+}
+
+// 优先级队列
+export class PriorityQueue extends Queue {
+  constructor(
+    // 处理判断优先级
+    private hanlder: Function,
+    // 处理元素
+    private getElement: Function,
+    // 处理输出hanlder
+    public toStrHanlder: Function
+  ) {
+    super();
+  }
+
+  enqueue(element: QueueEl): void {
+    const el = this.getElement(element)
+
+    if (this.isEmpty()) {
+      this.queue.push(el)
+    } else {
+      var added = false
+      for (let i = 0; i < this.queue.length; i++) {
+        if (this.hanlder(el, this.queue[i])) {
+          this.queue.splice(i, 0, el)
+          added = true
+          break;
+        }
+      }
+      if (!added) {
+        this.queue.push(el)
+      }
+    }
+  }
+  toString(): string {
+    return this.queue.map((m: QueueEl) => this.toStrHanlder(m)).join(' ')
+  }
 }
