@@ -6,6 +6,8 @@
 //   yield 5;
 //   return 6;
 // }
+// const f = foo();
+// console.log(f.next());
 
 // Array.prototype.flat = function (dep = 1) {
 // // 获取 需要操作的数组
@@ -40,22 +42,47 @@
 //   return arr;
 // };
 
-Array.prototype.flat = function (dep = 1) {
-  const arr = [];
-  this.forEach(f => {
-    let val = null;
-    if (!Array.isArray(f)) {
-      val = f;
-    } else if (dep == -1) {
-      val = f.flat(-1);
-    } else if (dep >= 1) {
-      val = f.flat(dep - 1);
-    }
-    arr.push(...val);
-  });
-  return arr;
-};
+// Array.prototype.flat = function (dep = 1) {
+//   const arr = [];
+//   this.forEach(f => {
+//     let val = null;
+//     if (!Array.isArray(f)) {
+//       val = f;
+//     } else if (dep == -1) {
+//       val = f.flat(-1);
+//     } else if (dep >= 1) {
+//       val = f.flat(dep - 1);
+//     }
+//     arr.push(...val);
+//   });
+//   return arr;
+// };
 
-const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']];
-// animals.flat();
-console.log(animals.flat(-1));
+// const animals = ['🐷', ['🐶', '🐂'], ['🐎', ['🐑', ['🐲']], '🐛']];
+// // animals.flat();
+// console.log(animals.flat(-1));
+
+let a = [];
+console.log(a instanceof Array);
+console.log(Array.prototype.isPrototypeOf(a));
+console.log(Object.getPrototypeOf(a) == Array.prototype);
+console.log(Object.prototype.toString.call(a) == '[object Array]');
+
+for (var i = 1; i <= 5; i++) {
+  // (function (v) {
+  //   setTimeout(function timer() {
+  //     console.log(v);
+  //   }, 0);
+  // })(i);
+  setTimeout(
+    function timer(j) {
+      console.log(j);
+    },
+    0,
+    i
+  );
+}
+
+const str = /\{\{\s*(\S+)s* \}\}/;
+let s = '我叫{{ name }}';
+console.log(s.replace(str, 21));
