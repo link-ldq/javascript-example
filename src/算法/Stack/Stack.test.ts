@@ -5,7 +5,7 @@ import { expect, assert, describe, it, test } from 'vitest'
 
 const stack = new Stack();
 
-describe('Stack', () => {
+describe('栈', () => {
   it('new', () => {
     expect(stack.size()).toBe(0)
   })

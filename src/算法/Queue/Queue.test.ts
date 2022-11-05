@@ -5,7 +5,7 @@ import { expect, assert, describe, it, test } from 'vitest';
 
 const queue = new Queue();
 
-describe('Queue', () => {
+describe('队列', () => {
   it('new', () => {
     expect(queue.size()).toBe(0)
   })
