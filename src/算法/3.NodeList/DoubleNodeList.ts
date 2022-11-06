@@ -175,7 +175,7 @@ export class DoubleNodeList {
   }
   backwordString(): string {
     var cur: Node = this.head;
-    var res: string = '';
+    var res: string = '';  
     // 依次向后遍历，获取每一点
     while (cur) {
       res += cur.data + '->';
