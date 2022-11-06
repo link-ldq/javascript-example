@@ -91,6 +91,14 @@ describe('DoubleNodeList', () => {
     expect(DbList.size()).toBe(3)
   })
 
+  it('getHead', () => {
+    expect(DbList.getHead()).toBe('ldq')
+  })
+
+  it('getTail', () => {
+    expect(DbList.getTail()).toBe('nb')
+  })
+
   it('insert', () => {
     expect(DbList.insert(10, 'top')).toBe(false)
     expect(DbList.insert(0, 'top')).toBe(true)
@@ -136,6 +144,6 @@ describe('DoubleNodeList', () => {
     expect(DbList.backwordString()).toBe("link->nb->null")
   })
   it('forwardString', () => {
-    expect(DbList.forwardString()).toBe("nb->link->ldq->null")
+    expect(DbList.forwardString()).toBe("nb->link->null")
   })
 })

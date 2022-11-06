@@ -75,20 +75,31 @@ export class DoubleNodeList {
   }
   // 删
   removeAt(position: number) {
-    if (this.isJudgeCrossingLine(position)) return false
-    if (position == 0) {
-      (this.head as any) = this.head?.next
+    if (this.isJudgeCrossingLine(position)) return false;
+    let cur: Node = this.head;
+    if (this.length == 1) {
+      this.head = null as any
+      this.tail = null as any
     } else {
-      let cur: Node = this.head
-      let prev = undefined
-      while (position--) {
-        prev = cur;
-        (cur as any) = cur?.next;
+      // 判断是否删除第一个节点
+      if (position == 0) {
+        (this.head.next as Node).prev = null as any;
+        (this.head as any) = this.head.next;
+      } else if (position == this.length - 1) {
+        (this.tail.prev as Node).next = null as any
+        this.tail = this.tail.prev as Node
+      } else {
+        let i = 0
+        while (i++ < position) {
+          (cur as any) = cur.next;
+        }
+        (cur.prev as Node).next = cur.next;
+        (cur.next as Node).prev = cur.prev;
       }
-      (prev as any).next = cur?.next
     }
     this.length -= 1
     return true
+    return this.head.data
   }
   remove(data: any) {
     let position = this.indexOf(data)
@@ -122,24 +133,24 @@ export class DoubleNodeList {
     if (this.length == 1 || this.length / 2 >= position) {
       let cur = this.head
       while (position--) {
-        (cur as any) = cur?.next;
+        (cur as any) = cur.next;
       }
       res = cur.data
     } else {
       let cur = this.tail
       let index = this.length - position
       while (--index) {
-        (cur as any) = cur?.prev;
+        (cur as any) = cur.prev;
       }
       res = cur.data
     }
     return res
   }
-  getNode(position: number): any { 
+  getNode(position: number): any {
     if (this.isJudgeCrossingLine(position)) return null
     let cur = this.head
     while (position--) {
-      (cur as any) = cur?.next;
+      (cur as any) = cur.next;
     }
     return cur
   }
@@ -172,6 +183,12 @@ export class DoubleNodeList {
     }
     res += 'null'
     return res
+  }
+  getHead(): Node {
+    return this.head.data
+  }
+  getTail(): Node {
+    return this.tail.data
   }
   private isJudgeCrossingLine(position: number): boolean {
     if (position < 0 || position >= this.length) {
