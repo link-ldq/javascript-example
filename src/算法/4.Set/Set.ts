@@ -1,4 +1,3 @@
-
 export class Set {
   // 属性
   private list = {};
@@ -28,4 +27,16 @@ export class Set {
   }
   size(): number { return Object.keys(this.list).length }
   values(): any { return Object.keys(this.list) }
+  union(otherSet: any): any {
+    var unionSet = new Set()
+    var values = this.values()
+    for (var i = 0; i < values.length; i++) {
+      unionSet.add(values[i])
+    }
+    values = otherSet.values()
+    for (var i = 0; i < values.length; i++) {
+      unionSet.add(values[i])
+    }
+    return unionSet
+  }
 }

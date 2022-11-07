@@ -12,13 +12,16 @@ describe('Set 集合', () => {
     expect(setlist.add('four')).toBe(true)
     expect(setlist.add('five')).toBe(true)
   })
+
   it('remove', () => {
     expect(setlist.remove('first')).toBe(true)
     expect(setlist.remove('five')).toBe(true)
   })
+
   it('has', () => {
     expect(setlist.has('first')).toBe(false)
   })
+
   it('size', () => {
     expect(setlist.size()).toBe(3)
   })
@@ -30,4 +33,5 @@ describe('Set 集合', () => {
   it('clear', () => {
     expect(setlist.clear()).toBe(true)
   })
+
 })

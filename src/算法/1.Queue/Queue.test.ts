@@ -2,7 +2,6 @@ import { Queue, passGame, PriorityQueue } from "./Queue";
 
 import { expect, assert, describe, it, test } from 'vitest';
 
-
 const queue = new Queue();
 
 describe('队列', () => {
@@ -37,12 +36,10 @@ describe('击鼓传花', () => {
 })
 describe('优先级队列', () => {
   it('PriorityQueue', () => {
-
     interface QueueEl {
       value: any,
       priority: number
     }
-
     // 比较函数
     const hanlder = function (el: any, el2: any): boolean {
       return el.priority < el2.priority
