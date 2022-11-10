@@ -39,7 +39,54 @@ export class BinarySearchTree {
       }
     }
   }
-  // 遍历
+  /**
+   * 删除
+   */
+  remove(key: any): any {
+  }
+  /**
+   * 搜索key
+   */
+  search(key: any): boolean {
+    if (this.root == null) return false;
+    return this.searchNode(this.root, key);
+  }
+  searchNode(node: Node, key: any): boolean {
+    // 判断节点值 和 传入的key 大小
+    if (node.key > key) {
+      if (node.left == null) return false;
+      return this.searchNode(node.left, key);
+    } else if (node.key < key) {
+      if (node.right == null) return false;
+      return this.searchNode(node.right, key);
+    } else {
+      return true;
+    }
+  }
+  /**
+   * 最值
+   */
+  // 最大值
+  max(): any | null {
+    if (this.root == null) return null;
+    var node = this.root;
+    while (node.right !== null) {
+      node = node.right
+    }
+    return node.key
+  }
+  // 最小值
+  min(): any | null {
+    if (this.root == null) return null;
+    var node = this.root;
+    while (node.left !== null) {
+      node = node.left
+    }
+    return node.key
+  }
+  /**
+   *  遍历 
+   * */
   // 先序遍历
   preOrderTraversal(): any[] {
     this._preOrderTraversalVal = []
@@ -59,7 +106,7 @@ export class BinarySearchTree {
     }
   }
   // 中序遍历
-  midOrderTraversal() {
+  midOrderTraversal(): any[] {
     this._midOrderTraversalVal = []
     this.midOrderTraversalNode(this.root);
     return this._midOrderTraversalVal;
@@ -77,7 +124,7 @@ export class BinarySearchTree {
     }
   }
   // 后序遍历
-  posOrderTraversal() {
+  posOrderTraversal(): any[] {
     this._posOrderTraversalVal = []
     this.posOrderTraversalNode(this.root);
     return this._posOrderTraversalVal;
