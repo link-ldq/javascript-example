@@ -41,5 +41,15 @@ describe('二叉搜索树 BinarySearchTree', () => {
       expect(bst.search(f)).toEqual(false);
     })
   })
+  it('del 二叉树删除', () => {
+    // [...arr].forEach(f => {
+    //   expect(bst.remove(f)).toEqual(true);
+    // });
+    // [...arr].forEach(f => {
+    //   expect(bst.search(f)).toEqual(false);
+    // });
+  })
 })
+
+
 
