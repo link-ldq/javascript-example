@@ -91,7 +91,7 @@ export class RBTree {
        */
     } while (t !== null);
 
-    // 2.讲解点插入树中
+    // 2.将节点插入树中
     // 2.1创建节点
     const newNode = new RBNode(val, parent);
     // 2.2根据节点的值来判断是插入右子树还是左子树
