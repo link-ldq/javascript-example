@@ -11,28 +11,17 @@
 
 <body>
   <div id="app">
-    son1 <input id="input" v-model="msg" type="text"> <button @click="goParentIfromPostMessage">submit</button>
+    son <span id="result"></span>
   </div>
   <script>
-    const { createApp, reactive, ref } = Vue
+    window.addEventListener('message', function (e) {
+      const result = document.getElementById('result')
+      result.innerHTML = e.data
+      console.log(e.origin, e.data);
 
-    createApp({
-      setup() {
-        const msg = ref(null)
-        function goParentIfromPostMessage() {
-          if (msg.value !== null) {
-            window.parent.postMessage(msg.value, window.parent.location.origin);
-            msg.value = null
-          }
-        }
-        // 不要忘记同时暴露 increment 函数
-        return {
-          msg,
-          goParentIfromPostMessage
-        }
-      },
-    }).mount('#app')
-    // 子框架向父框架发送信息
+      console.log(e.data);
+
+    })
 
   </script>
 

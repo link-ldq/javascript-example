@@ -25,38 +25,49 @@
     text-align: center;
   }
 
-  #father1 {
+  #father {
     width: 99%;
     height: 100px;
     border: 10px solid green;
   }
 
-  #son1 {
+  #son {
     width: 99%;
     height: 50px;
     border: 10px solid yellowgreen;
   }
 </style>
-<!-- <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script> -->
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
 <body>
   <div id="title">father send to son</div>
-  <div id="father1">
-    <div>
-      father1 <span id="result"></span>
+  <div id="father">
+    <div id="app">
+      father <input id="input" v-model="msg" type="text"> <button @click="goParentIfromPostMessage">submit</button>
     </div>
-    <iframe src="./iframe.html" id="son1" frameborder=""></iframe>
+    <iframe src="./iframe.html" id="son" frameborder=""></iframe>
   </div>
   <script>
+    const { createApp, reactive, ref } = Vue
 
-    window.addEventListener('message', function (e) {
-      const result = document.getElementById('result')
-      result.innerHTML = e.data
-      console.log(e.origin, e.data);
+    createApp({
+      setup() {
+        const msg = ref(null)
+        function goParentIfromPostMessage() {
+          if (msg.value !== null) {
+            const iframe = document.querySelector('#son')
+            iframe.contentWindow.postMessage(msg.value, iframe.contentWindow.location.origin);
+            msg.value = null
+          }
+        }
 
-      console.log(e.data);
-
-    })
+        // 不要忘记同时暴露 increment 函数
+        return {
+          msg,
+          goParentIfromPostMessage
+        }
+      },
+    }).mount('#app')
   </script>
 </body>
 
