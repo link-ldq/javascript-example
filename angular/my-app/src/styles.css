@@ -49,3 +49,5 @@ button:disabled {
 * {
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* @import "~ng-zorro-antd/ng-zorro-antd.min.css"; */
