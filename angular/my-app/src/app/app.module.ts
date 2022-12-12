@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
 import { X6Component } from './x6/x6.component';
+import { LayoutLeftRightComponent } from './layout-left-right/layout-left-right.component';
 @NgModule({
   imports: [
     BrowserModule,
@@ -25,7 +26,8 @@ import { X6Component } from './x6/x6.component';
     HeroesComponent,
     HeroDetailComponent,
     MessagesComponent,
-    X6Component
+    X6Component,
+    LayoutLeftRightComponent
   ],
   bootstrap: [AppComponent]
 })
