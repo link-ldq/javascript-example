@@ -1,0 +1,27 @@
+<breadcrumb></breadcrumb>
+
+<div fxLayout="row " fxLayoutGap="16px grid" style="background-color: red;height: 300px;">
+  <div fxLayout="row " [fxFlex]="isShow?30:100" style="background-color: yellowgreen;height: 300px;">
+  </div>
+  <div fxLayout="row " [fxFlex]="isShow?70:0" style="background-color: saddlebrown;height: 300px;">
+    <!-- [autoScroll]="(e)=>(40)" -->
+    <!-- <span [appTooltip]="'Hello Jimmy'"></span> -->
+    <ul class="autoScroll" style="width: 100%; height: 300px;overflow: hidden;" [style.display]="isShow? 'block':'none'"
+      id="marqueebox">
+      <li *ngFor="let list of lists">
+        id:<span> {{list.id}} </span>
+        name:<span> {{list.id}} </span>
+        timr:<span> {{list.id}} </span>
+      </li>
+    </ul>
+  </div>
+</div>
+<div style="
+  margin-top: 20px;
+  height: 300px;
+  display: grid;
+  transition: 0.3s linear;
+  grid-template-rows: 50px 50px;" [style.gridTemplateColumns]="isShow? '30% 70%': '100% 0%'">
+  <div style="height: 300px;background-color: seagreen;"></div>
+  <div style="height: 300px;background-color: salmon;"></div>
+</div>

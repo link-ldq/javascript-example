@@ -21,6 +21,7 @@
         const msg = ref(null)
         function goParentIfromPostMessage() {
           if (msg.value !== null) {
+            console.log(window.parent)
             window.parent.postMessage(msg.value, window.parent.location.origin);
             msg.value = null
           }

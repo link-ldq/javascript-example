@@ -11,6 +11,30 @@
       }
     },
     {
+      "route": "llr",
+      "name": "llr",
+      "type": "sub",
+      "icon": "color_lens",
+      "children": [
+        {
+          "route": "color",
+          "name": "color",
+          "type": "link"
+        },
+        {
+          "route": "icons",
+          "name": "icons",
+          "type": "link"
+        }
+      ],
+      "permissions": {
+        "only": [
+          "ADMIN",
+          "MANAGER"
+        ]
+      }
+    },
+    {
       "route": "design",
       "name": "design",
       "type": "sub",

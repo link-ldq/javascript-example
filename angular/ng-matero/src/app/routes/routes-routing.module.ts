@@ -28,6 +28,7 @@ const routes: Routes = [
         path: 'design',
         loadChildren: () => import('./design/design.module').then(m => m.DesignModule),
       },
+      { path: 'llr', loadChildren: () => import('./llr/llr.module').then(m => m.DesignModule) },
       {
         path: 'material',
         loadChildren: () => import('./material/material.module').then(m => m.MaterialModule),
@@ -79,4 +80,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class RoutesRoutingModule {}
+export class RoutesRoutingModule { }

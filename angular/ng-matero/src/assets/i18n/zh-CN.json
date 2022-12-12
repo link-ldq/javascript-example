@@ -1,5 +1,8 @@
 {
   "menu": {
+    "llr": "左右布局",
+    "llr.color": "layout",
+    "llr.icons": "icon",
     "dashboard": "数据大盘",
     "design": "设计",
     "design.colors": "颜色系统",
