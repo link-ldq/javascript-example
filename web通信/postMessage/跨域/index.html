@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <iframe src="http://127.0.0.1:8050/" frameborder="1" id="ifr1" name="ifr1" scrolling="yes">
+    <p>Your Browser dose not support iframes</p>
+  </iframe>
+
+  <input type="text" id="message">
+  <input type="button" value="this is message" id="demoBtn">
+</body>
+<script>
+  var myIframe = document.getElementById('ifr1')
+  var demoBtn = document.getElementById('demoBtn')
+  // demoBtn.addEventListener('click', function (e) {
+  //   myIframe.contentWindow.postMessage(121313, 'http://127.0.0.1:8050/')
+  // })
+  window.addEventListener('message', function (e) {
+    alert(e.data)
+    console.log('====================================');
+    console.log(top);
+    console.log('====================================');
+  })
+</script>
+
+</html>

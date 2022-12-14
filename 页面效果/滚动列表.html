@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+
+
+</head>
+<style>
+  div {
+    height: 50px;
+    /* 必须 */
+    overflow: hidden;
+    /* 必须 */
+  }
+</style>
+
+<body>
+  <div id="app">
+    <!-- vue -->
+    <div id="review_box" @mouseover="rollStop()" @mouseout="rollStart(60)">
+      <ul id="comment1">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+        <li>5</li>
+      </ul>
+      <ul id="comment2"></ul>
+    </div>
+  </div>
+  <script>
+    const { createApp, onMounted, $ref, ref } = Vue
+
+    createApp({
+      //vue data
+      setup(props) {
+        const timer = ref(null)
+        function roll(t) {
+          var ul1 = document.getElementById("comment1");
+          var ul2 = document.getElementById("comment2");
+          var ulbox = document.getElementById("review_box");
+          ul2.innerHTML = ul1.innerHTML;
+          ulbox.scrollTop = 0;
+          rollStart(t);
+        }
+        function rollStart(t) {
+          var ul1 = document.getElementById("comment1");
+          var ul2 = document.getElementById("comment2");
+          var ulbox = document.getElementById("review_box");
+          rollStop();
+          timer.value = setInterval(() => {
+            // 当滚动高度大于列表内容高度时恢复为0
+            if (ulbox.scrollTop >= ul1.scrollHeight) {
+              ulbox.scrollTop = 0;
+            } else {
+              ulbox.scrollTop++;
+            }
+          }, t);
+        }
+        function rollStop() {
+          clearInterval(timer.value);
+        }
+        onMounted(() => {
+          roll(60);
+        })
+        return {
+          rollStop,
+          rollStart,
+          timer
+        }
+      },
+      beforeDestroy() {
+        if (timer.value) clearInterval(timer.value);
+      },
+      //vue methods
+
+    }).mount('#app')
+    //vue data
+
+  </script>
+</body>
+
+</html>
