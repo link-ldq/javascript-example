@@ -1,6 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    "noUnusedLocals": false,
     "baseUrl": "src",
     "downlevelIteration": true,
     "outDir": "./dist/out-tsc",
@@ -16,19 +17,44 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es2020",
-    "typeRoots": ["node_modules/@types"],
-    "lib": ["es2019", "dom"],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": [
+      "es2019",
+      "dom"
+    ],
     "paths": {
-      "@core": ["app/core"],
-      "@core/*": ["app/core/*"],
-      "@shared": ["app/shared"],
-      "@shared/*": ["app/shared/*"],
-      "@theme": ["app/theme"],
-      "@theme/*": ["app/theme/*"],
-      "@testing": ["testing"],
-      "@testing/*": ["testing/*"],
-      "@env": ["environments"],
-      "@env/*": ["environments/*"]
+      "@core": [
+        "app/core"
+      ],
+      "@core/*": [
+        "app/core/*"
+      ],
+      "@shared": [
+        "app/shared"
+      ],
+      "@shared/*": [
+        "app/shared/*"
+      ],
+      "@theme": [
+        "app/theme"
+      ],
+      "@theme/*": [
+        "app/theme/*"
+      ],
+      "@testing": [
+        "testing"
+      ],
+      "@testing/*": [
+        "testing/*"
+      ],
+      "@env": [
+        "environments"
+      ],
+      "@env/*": [
+        "environments/*"
+      ]
     }
   },
   "angularCompilerOptions": {

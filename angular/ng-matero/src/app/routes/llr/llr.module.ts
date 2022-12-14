@@ -4,8 +4,9 @@ import { DesignRoutingModule } from './llr-routing.module';
 
 import { DesignColorsComponent } from './colors/colors.component';
 import { DesignIconsComponent } from './icons/icons.component';
+import { PhmComponent } from './phm/phm.component';
 
-const COMPONENTS: any[] = [DesignColorsComponent, DesignIconsComponent];
+const COMPONENTS: any[] = [DesignColorsComponent, DesignIconsComponent, PhmComponent];
 const COMPONENTS_DYNAMIC: any[] = [];
 
 @NgModule({

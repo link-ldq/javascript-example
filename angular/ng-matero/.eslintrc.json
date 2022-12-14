@@ -1,11 +1,19 @@
 {
   "root": true,
-  "ignorePatterns": ["dist"],
+  "ignorePatterns": [
+    "dist"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json",
+        ],
+        "tsconfigRootDir": "__dirname",
         "createDefaultProgram": true
       },
       "extends": [
@@ -15,7 +23,9 @@
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
       "rules": {
-        "dot-notation": ["warn"],
+        "dot-notation": [
+          "warn"
+        ],
         "max-len": [
           "warn",
           {
@@ -32,7 +42,10 @@
             "avoidQuotes": true
           }
         ],
-        "quote-props": ["warn", "consistent-as-needed"],
+        "quote-props": [
+          "warn",
+          "consistent-as-needed"
+        ],
         "quotes": [
           "warn",
           "single",
@@ -40,7 +53,10 @@
             "allowTemplateLiterals": true
           }
         ],
-        "semi": ["warn", "always"],
+        "semi": [
+          "warn",
+          "always"
+        ],
         "@typescript-eslint/explicit-module-boundary-types": "off",
         "@typescript-eslint/no-explicit-any": "off",
         "@typescript-eslint/no-empty-function": "off",
@@ -64,20 +80,30 @@
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
       "rules": {}
     },
     {
-      "files": ["*.js"],
+      "files": [
+        "*.js"
+      ],
       "parserOptions": {
-        "ecmaVersion": 11
+        "ecmaVersion": 11,
+        "tsconfigRootDir": "__dirname",
+        "project": "./tsconfig.json"
       },
       "env": {
         "node": true,
         "amd": true
       },
-      "extends": ["eslint:recommended"],
+      "extends": [
+        "eslint:recommended"
+      ],
       "rules": {}
     }
   ]

@@ -11,7 +11,7 @@ import { MAT_ICONS } from '@shared';
 export class DesignIconsComponent implements OnInit {
   icons!: { [key: string]: string[] };
 
-  constructor(private iconsSrv: DesignIconsService) {}
+  constructor(private iconsSrv: DesignIconsService) { }
 
   ngOnInit() {
     this.icons = MAT_ICONS;

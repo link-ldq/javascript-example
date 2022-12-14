@@ -25,6 +25,11 @@
           "route": "icons",
           "name": "icons",
           "type": "link"
+        },
+        {
+          "route": "phm",
+          "name": "phm",
+          "type": "link"
         }
       ],
       "permissions": {
