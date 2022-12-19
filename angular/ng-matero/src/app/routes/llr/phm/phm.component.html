@@ -1,6 +1,6 @@
 <page-header class="bg-purple-500"></page-header>
 <mat-tab-group dynamicHeight preserveContent>
   <mat-tab *ngFor="let list of tabList;index as i" [label]="list.title">
-    <iframe [src]="list.url" frameborder="0" class="phm-iframe" width="500%"></iframe>
+    <iframe [src]="list.url" frameborder="0" class="phm-iframe" width="100%"></iframe>
   </mat-tab>
 </mat-tab-group>
