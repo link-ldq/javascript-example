@@ -3,11 +3,11 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 const TABLIST = [
   {
-    url: 'http://localhost:8050/report/a',
+    url: 'http://localhost:8050/PPEI',
     title: '关键性能参数'
   },
   {
-    url: 'http://localhost:8050/report/a',
+    url: 'http://localhost:8050/PPEI',
     title: 'test'
   },
 ]
